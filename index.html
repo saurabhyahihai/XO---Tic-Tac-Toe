@@ -1,0 +1,78 @@
+<html lang="en-US">
+    <head>
+        <title>Pass and Play | XO</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="css/w3.css">
+    </head>
+    <body onload="intro()" class="w3-light-grey">
+        <canvas id="intro" height="120" width="240" class="w3-light-grey w3-display-middle"></canvas>
+        <script>
+            function intro() {
+                var canvas = document.getElementById("intro");
+                var ctx = canvas.getContext("2d");
+                var angle = 0;
+                var timec = setInterval(timea,5);
+                var timev = setInterval(time,5);
+                var timer = setInterval(times,20);
+                var time = 10;
+                // For X
+                var a = 10;
+                var b = 10;
+                var c = 110;
+                var d = 110;
+                var aa = 10;
+                var bb = 10;
+                var cc = 110;
+                var dd = 10;
+                function timea() {
+                    ctx.strokeStyle = "cadetblue";
+                    ctx.beginPath();
+                    ctx.moveTo(c,b);
+                    cc -= 0.9;
+                    dd += 0.9;
+                    ctx.lineTo(cc,dd);
+                    ctx.lineWidth = 20;
+                    ctx.stroke();
+                    ctx.closePath();
+                    if(cc < a && dd > 110) {
+                        clearInterval(timec);
+                    }
+                }
+                function time() {
+                    ctx.strokeStyle = "cadetblue";
+                    ctx.beginPath();
+                    ctx.moveTo(a,b);
+                    aa += 0.9;
+                    bb += 0.9;
+                    ctx.lineTo(aa,bb);
+                    ctx.lineWidth = 20;
+                    ctx.stroke();
+                    ctx.closePath();
+                    if(aa > c && bb > d) {
+                        clearInterval(timev);
+                    }
+                }
+                function times() {
+                    // For O
+                    h = 175;
+                    i = 60;
+                    angle += 0.06;
+                    ctx.strokeStyle = "slategray";
+                    ctx.beginPath();
+                    ctx.arc(h,i,50,0,angle*Math.PI);
+                    ctx.lineWidth = 19;
+                    ctx.stroke();
+                    ctx.closePath();
+                    time += 10;
+                    if(angle > 2) {
+                        clearInterval(timer);
+                    }
+                }
+                setTimeout(function(){
+                    window.location.replace("page-one.html");
+                },1500);
+            }
+        </script>
+    </body>
+</html>

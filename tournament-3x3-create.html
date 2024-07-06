@@ -1,0 +1,113 @@
+<html lang="en-US">
+    <head>
+        <title>Tournament | Pass and Play | XO</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="css/w3.css">
+    </head>
+    <body class="w3-animate-left" onload="fetch_data();">
+
+       <div class="w3-center">
+           <div class="w3-light-grey">
+               <br>
+               <span class="w3-xxlarge">Tournament</span><br><br>
+            </div>
+           <br>
+           <div class="w3-container">
+               <div class="w3-row w3-xlarge">
+                   <div class="w3-col s5">Matches</div>
+                   <div class="w3-col s7"><span class="w3-border"><span class="w3-btn w3-round-xlarge" onclick="match_minus();">&#8211;</span><span class="w3-btn w3-white" id="matches">2</span><span class="w3-btn w3-round-xlarge" onclick="match_plus();">+</span></span></div>
+                </div>
+                <hr>
+                <div class="w3-row w3-container w3-xlarge">
+                    <div class="w3-col s2"><strong>&#10005;</strong></div>
+                    <input id="x_name" class="w3-col s10 w3-input" placeholder="Player 1">
+                </div>
+                <br>
+                <div class="w3-row w3-container w3-xlarge">
+                    <div class="w3-col s2">O</div>
+                    <input id="o_name" class="w3-col s10 w3-input" placeholder="Player 2">
+                </div>
+                <br><br>
+                <button class="w3-btn w3-round-xlarge w3-xlarge" onclick="start()">Start</button>
+           </div>
+       </div>
+
+       <script>
+           function fetch_data() {
+               var loc = location.search;
+               var locarr = loc.split("?@!?");
+               var x_name = locarr[2];
+               var o_name = locarr[4];
+               if(x_name != undefined && o_name != undefined) {
+                   var matches = parseInt(locarr[6]);
+                   document.getElementById("matches").innerHTML = matches;
+                   x_name = locarr[2].split("%20");
+                   if(x_name.length > 1) {
+                       var i = 0;
+                       var name = "";
+                       while(i < x_name.length) {
+                           if(i != 0) {
+                               name = name + " ";
+                            }
+                            name = name + x_name[i];
+                            i += 1;
+                        }
+                        document.getElementById("x_name").value = name;
+                    } else {
+                        document.getElementById("x_name").value = locarr[2];
+                    }
+                    o_name = locarr[4].split("%20");
+                    if(o_name.length > 1) {
+                        var i = 0;
+                        var name = "";
+                        while(i < o_name.length) {
+                            if(i != 0) {
+                                name = name + " ";
+                            }
+                            name = name + o_name[i];
+                            i += 1;
+                        }
+                        document.getElementById("o_name").value = name;
+                    } else {
+                        document.getElementById("o_name").value = locarr[4];
+                    }
+                }
+           }
+
+           function match_minus() {
+               var matches = parseInt(document.getElementById("matches").innerHTML);
+               if(matches > 2) {
+                   matches -= 2;
+                   document.getElementById("matches").innerHTML = matches;
+               }
+           }
+
+           function match_plus() {
+               var matches = parseInt(document.getElementById("matches").innerHTML);
+               matches += 2;
+               document.getElementById("matches").innerHTML = matches;
+           }
+
+           function start(){
+               var x_name = document.getElementById("x_name").value.trim();
+               var o_name = document.getElementById("o_name").value.trim();
+               var matches = document.getElementById("matches").innerHTML;
+               if(x_name == "") {
+                   document.getElementById("x_name").focus();
+               } else {
+                   if(o_name == "" ) {
+                       document.getElementById("o_name").focus();
+                   } else {
+                       if(o_name == x_name) {
+                           document.getElementById("o_name").focus();
+                        } else {
+                           var loc = "tournament-3x3.html?@!?X?@!?"+x_name+"?@!?O?@!?"+o_name+"?@!?M?@!?"+matches;
+                           window.location.assign(loc);
+                        }
+                   }
+               }
+           }
+       </script>
+    </body>
+</html>
